@@ -6,3 +6,7 @@ A GitHub actions that syncs the movies, shows and ratings between trakt and Plex
 ```SET_ENV```
 
 ```SET_PYTRAKT```
+
+# Thanks
+
+https://github.com/Taxel/PlexTraktSync
