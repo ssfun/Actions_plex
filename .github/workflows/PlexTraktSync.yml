@@ -1,0 +1,49 @@
+name: PlexTraktSync
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "1 */4 * * *"
+    watch:
+        types: [started]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        if: github.event.repository.owner.id == github.event.sender.id
+        steps:
+            - name: Checkout
+              run: |
+                git clone -b master https://github.com/Taxel/PlexTraktSync.git ~/trakt
+            
+            - name: "Set up env config"
+              env:
+                  SET_ENV: ${{ secrets.SET_ENV }}
+              run: |
+                # 写入 env 配置文件
+                cat << EOF > ~/trakt/.env
+                $SET_ENV
+                EOF
+            
+            - name: "Set up pytrakt config"
+              env:
+                  SET_PYTRAKT: ${{ secrets.SET_PYTRAKT }}
+              run: |
+                # 写入 pytrakt 配置文件
+                cat << EOF > ~/trakt/.pytrakt.json
+                $SET_PYTRAKT
+                EOF
+            
+            - name: "Set up Python"
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.8
+
+            - name: "安装依赖包"
+              run: |
+                cd ~/trakt
+                pip3 install -r requirements.txt
+            - name: "运行 PlexTraktSync"
+              run: |
+                cd ~/trakt
+                python3 main.py
