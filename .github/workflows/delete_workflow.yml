@@ -1,4 +1,4 @@
-name: 'delete workflows log'
+name: 'DeleteRunsLog'
 
 on:
   schedule:
