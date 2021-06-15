@@ -53,4 +53,4 @@ jobs:
             - name: "运行 PlexTraktSync"
               run: |
                 cd ~/trakt
-                python3 main.py
+                ./plex_trakt_sync.sh
