@@ -32,6 +32,15 @@ jobs:
                 $SET_PYTRAKT
                 EOF
             
+            - name: "Set up sync config"
+              env:
+                  SET_PYTRAKT: ${{ secrets.SET_CONFIG }}
+              run: |
+                # 写入 sync 配置文件
+                cat << EOF > ~/trakt/config.json
+                $SET_CONFIG
+                EOF
+            
             - name: "Set up Python"
               uses: actions/setup-python@v1
               with:
