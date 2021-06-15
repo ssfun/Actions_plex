@@ -7,7 +7,6 @@ Actions that syncs the movies, shows and ratings between trakt and Plex (without
 | :-------------------: | ---------------------------- |
 | `SET_ENV`             |   Plex Trakt 登录信息配置文件   |
 | `SET_PYTRAKT`         |   Trakt API 信息配置文件       |
-| `SET_CONFIG`         |    Plex Trakt 同步信息配置文件   |
 
 ## SET_ENV
 ```
