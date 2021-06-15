@@ -34,7 +34,7 @@ jobs:
             
             - name: "Set up sync config"
               env:
-                  SET_PYTRAKT: ${{ secrets.SET_CONFIG }}
+                  SET_CONFIG: ${{ secrets.SET_CONFIG }}
               run: |
                 # 写入 sync 配置文件
                 cat << EOF > ~/trakt/config.json
