@@ -1,0 +1,48 @@
+name: CloudSync
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "30 */4 * * *"
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        if: github.event.repository.owner.id == github.event.sender.id
+        steps:
+            - name: Checkout
+              run: |
+                git clone -b main https://github.com/Taxel/PlexTraktSync.git ~/trakt
+            
+            - name: "Set up env config"
+              env:
+                  SET_ENV: ${{ secrets.CLOUD_ENV }}
+              run: |
+                # 写入 env 配置文件
+                cat << EOF > ~/trakt/.env
+                $CLOUD_ENV
+                EOF
+            
+            - name: "Set up pytrakt config"
+              env:
+                  SET_PYTRAKT: ${{ secrets.CLOUD_PYTRAKT }}
+              run: |
+                # 写入 pytrakt 配置文件
+                cat << EOF > ~/trakt/.pytrakt.json
+                $CLOUD_PYTRAKT
+                EOF
+            
+            - name: "Set up Python"
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.9
+
+            - name: "安装依赖包"
+              run: |
+                cd ~/trakt
+                pip3 install pipenv
+                pipenv install
+            - name: "运行 PlexTraktSync"
+              run: |
+                cd ~/trakt
+                pipenv run python main.py
