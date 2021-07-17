@@ -16,7 +16,7 @@ jobs:
             
             - name: "Set up env config"
               env:
-                  SET_ENV: ${{ secrets.CLOUD_ENV }}
+                  CLOUD_ENV: ${{ secrets.CLOUD_ENV }}
               run: |
                 # 写入 env 配置文件
                 cat << EOF > ~/trakt/.env
@@ -25,7 +25,7 @@ jobs:
             
             - name: "Set up pytrakt config"
               env:
-                  SET_PYTRAKT: ${{ secrets.CLOUD_PYTRAKT }}
+                  CLOUD_PYTRAKT: ${{ secrets.CLOUD_PYTRAKT }}
               run: |
                 # 写入 pytrakt 配置文件
                 cat << EOF > ~/trakt/.pytrakt.json
