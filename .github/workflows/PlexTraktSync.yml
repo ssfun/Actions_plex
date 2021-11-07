@@ -40,9 +40,8 @@ jobs:
             - name: "安装依赖包"
               run: |
                 cd ~/trakt
-                pip3 install pipenv
-                pipenv install
+                python3 -m pip install -r requirements.txt
             - name: "运行 PlexTraktSync"
               run: |
                 cd ~/trakt
-                pipenv run python main.py
+                python3 -m plextraktsync
